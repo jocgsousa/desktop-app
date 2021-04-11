@@ -1,0 +1,125 @@
+{
+  "name": "app",
+  "version": "0.1.0",
+  "private": true,
+  "author": {
+    "name": "Seu nome",
+    "email": "seu.email@email.com",
+    "url": "https://seu-site.com"
+  },
+  "description": "Aplication Electron + React",
+  "homepage": "./",
+  "license": "MIT",
+  "main": "public/electron.js",
+  "build": {
+    "productName": "Electron App",
+    "asar": true,
+    "appId": "com.example.electron-cra",
+    "copyright": "Copyright © 2019 Seu Nome",
+    "files": [
+      "build/**/*",
+      "node_modules/**/*"
+    ],
+    "directories": {
+      "app": ".",
+      "output": "dist",
+      "buildResources": "assets"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "build/favicon.icns",
+      "category": "public.app-category.utilities"
+    },
+    "linux": {
+      "target": "AppImage",
+      "icon": "build/favicon.icon"
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "build/favicon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true,
+      "runAfterFinish": false
+    },
+    "dmg": {
+      "background": "window.size",
+      "backgroundColor": "#ffffff",
+      "contents": [
+        {
+          "x": 100,
+          "y": 100
+        },
+        {
+          "x": 300,
+          "y": 100,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ],
+      "format": "UDZO",
+      "icon": "build/favicon.icns",
+      "iconSize": 80,
+      "iconTextSize": 12,
+      "internetEnabled": false,
+      "publish": null,
+      "sign": false,
+      "title": "Electron App Setup 1.0.0",
+      "window": {
+        "width": "400",
+        "height": "300"
+      }
+    }
+  },
+  "dependencies": {
+    "electron-is-dev": "^1.1.0",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "react-scripts": "3.1.1",
+    "styled-components": "^4.3.2"
+  },
+  "scripts": {
+    "start": "rescripts start",
+    "build": "rescripts build",
+    "test": "rescripts test",
+    "eject": "react-scripts eject",
+    "postinstall": "electron-builder install-app-deps",
+    "dist-linux": "concurrently \"yarn build && electron-builder -l\"",
+    "dist-windows": "concurrently \"yarn build && electron-builder -w\"",
+    "dist-mac": "concurrently \"yarn build && electron-builder -m\"",
+    "package-win": "concurrently \"yarn build && electron-packager . electronapp --overwrite --asar --platform=win32 --arch=ia32 --icon=build/favicon.ico --prune=true --out=dist",
+    "package-lin": "concurrently \"yarn build && electron-packager . electronapp --overwrite --asar --platform=linux --arch=x64 --icon=build/favicon.ico --prune=true --out=dist",
+    "package-mac": "concurrently \"yarn build && electron-packager . --overwrite --platform=darwin --arch=x64 --icon=build/favicon.icns --prune=true --out=dist\"",
+    "dev": "concurrently \"set BROWSER=none && yarn start\" \"wait-on http://localhost:3000 && electron .\""
+    
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@rescripts/cli": "^0.0.11",
+    "@rescripts/rescript-env": "^0.0.10",
+    "concurrently": "^4.1.2",
+    "electron": "^7.2.4",
+    "electron-builder": "^22.2.0",
+    "electron-packager": "^15.2.0",
+    "electron-wix-msi": "^3.2.0",
+    "typescript": "^3.5.3",
+    "wait-on": "^3.3.0"
+  }
+}
